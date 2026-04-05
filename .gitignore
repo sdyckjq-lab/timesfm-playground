@@ -10,3 +10,4 @@ development_setup.md
 .gstack/
 *.egg-info/
 node_modules/
+.DS_Store
