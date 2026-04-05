@@ -1,0 +1,16 @@
+# TimesFM Playground 后端构建排除规则
+# 构建上下文是仓库根目录，只保留构建后端需要的文件
+.git/
+.claude/
+.venv/
+**/__pycache__/
+**/*.pyc
+**/*.egg-info/
+**/.pytest_cache/
+**/node_modules/
+**/dist/
+v1/
+docs/
+notebooks/
+playground/frontend/
+playground/backend/test_api.py

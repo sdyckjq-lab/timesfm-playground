@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: playground/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # 缓存 HuggingFace 模型，避免每次重启重新下载
+      - hf-cache:/root/.cache/huggingface
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  hf-cache:
